@@ -1,20 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Button from './components/Button';
+import Button, { ButtonTypes } from './components/Button';
+import { useState } from 'react';
 const App = () => {
-  const isError = true;
-  console.log('fffff');
+  const [result, setResult] = useState(0);
+  console.log('rendering : ' + result);
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text style={styles.text}>Calc App</Text>
-      <Text style={styles.text}>StyleSheet</Text>
-      <Text style={[styles.text, isError && styles.error]}>Error</Text>
-      <Button
-        title="button"
-        onPress={() => console.log('click!')}
-        color="purple"
-      />
+      <View style={styles.resultContainer}>
+        <Text style={styles.text}>{result}</Text>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Text>Button</Text>
+      </View>
     </View>
   );
 };
@@ -22,14 +22,31 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#fff',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
   },
   text: {
-    fontSize: 30,
+    fontSize: 60,
     fontWeight: '700',
-    color: 'green',
+    color: '#ffffff',
+    paddingBottom: 30,
+    paddingRight: 30,
+  },
+  resultContainer: {
+    flex: 1,
+    backgroundColor: '#000000',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: '#A5B4FC',
+  },
+  button: {
+    width: 100,
+    height: 100,
   },
   error: {
     color: 'red',
