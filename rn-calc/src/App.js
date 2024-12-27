@@ -1,19 +1,65 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import Button, { ButtonTypes } from './components/Button';
 import { useState } from 'react';
 const App = () => {
   const [result, setResult] = useState(0);
-  console.log('rendering : ' + result);
+
+  const windowWidth = useWindowDimensions().width;
+  const width = (windowWidth - 5) / 4;
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <View style={styles.resultContainer}>
         <Text style={styles.text}>{result}</Text>
       </View>
 
       <View style={styles.buttonContainer}>
-        <Text>Button</Text>
+        <View style={styles.leftPad}>
+          <View style={styles.number}>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+              <Button
+                title={num.toString()}
+                onPress={() => {}}
+                buttonStyle={{ width, height: width, marginTop: 1 }}
+              ></Button>
+            ))}
+          </View>
+          <View style={styles.bottom}>
+            <Button
+              title="0"
+              onPress={() => {}}
+              buttonType={ButtonTypes.NUMBER}
+              buttonStyle={{ width: width * 2, height: width, marginTop: 1 }}
+            ></Button>
+            <Button
+              title="="
+              onPress={() => {}}
+              buttonType={ButtonTypes.OPERATOR}
+              buttonStyle={{ width, height: width, marginTop: 1 }}
+            ></Button>
+          </View>
+        </View>
+        <View>
+          <Button
+            title="C"
+            onPress={() => {}}
+            buttonType={ButtonTypes.OPERATOR}
+            buttonStyle={{ width, height: width, marginTop: 1 }}
+          ></Button>
+          <Button
+            title="-"
+            onPress={() => {}}
+            buttonType={ButtonTypes.OPERATOR}
+            buttonStyle={{ width, height: width, marginTop: 1 }}
+          ></Button>
+          <Button
+            title="+"
+            onPress={() => {}}
+            buttonType={ButtonTypes.OPERATOR}
+            buttonStyle={{ width, height: width * 2, marginTop: 1 }}
+          ></Button>
+        </View>
       </View>
     </View>
   );
@@ -41,12 +87,21 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   buttonContainer: {
-    flex: 1,
     backgroundColor: '#A5B4FC',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
-  button: {
-    width: 100,
-    height: 100,
+  leftPad: {
+    width: '75%',
+  },
+  number: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  bottom: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
   error: {
     color: 'red',
